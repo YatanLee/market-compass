@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f4ef">
+  <meta name="description" content="Market Compass 投資研究工作台：觀察市場、整理事件並比較策略。">
+  <title>Market Compass｜投資研究工作台</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.mjs"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳至主要內容</a>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="主要導覽">
+      <a class="brand" href="#overview" data-view-link="overview" aria-label="Market Compass 市場羅盤首頁">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="20" cy="20" r="11" fill="none" stroke="currentColor" stroke-width="1" opacity=".38"/><path d="M27 12 22 22l-9 6 5-10 9-6Z" fill="currentColor"/><circle cx="20" cy="20" r="2" fill="#f5f4ef"/></svg>
+        </span>
+        <span class="brand-copy"><strong>Market Compass</strong><small>投資研究工作台</small></span>
+      </a>
+      <div class="sidebar-label">研究空間</div>
+      <nav class="primary-nav" aria-label="研究檢視">
+        <a href="#overview" class="nav-item is-active" data-view-link="overview">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="4" rx="1.5"/><rect x="13.5" y="9.5" width="7" height="11" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/></svg><span>市場總覽</span>
+        </a>
+        <a href="#events" class="nav-item" data-view-link="events">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5 14.6 9l5.9.7-4.4 4 1.2 5.8L12 16.6l-5.3 2.9 1.2-5.8-4.4-4L9.4 9 12 3.5Z"/></svg><span>事件雷達</span>
+        </a>
+        <a href="#strategies" class="nav-item" data-view-link="strategies">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 18.5 9 13l3.2 3.1L20 7.5"/><path d="M14.5 7.5H20v5.5"/><path d="M4 4.5v15h16"/></svg><span>策略實驗室</span>
+        </a>
+        <a href="#sources" class="nav-item" data-view-link="sources">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 4.5h14v15H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span>資料來源</span>
+        </a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="sidebar-note">
+          <span class="note-icon" aria-hidden="true">i</span>
+          <p>只供研究與比較<br>不含下單或個人化配置</p>
+        </div>
+        <div class="sidebar-foot"><span class="online-dot" aria-hidden="true"></span><span id="service-label">正在連線</span></div>
+      </div>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <div class="mobile-brand">
+          <span class="brand-mark brand-mark-small" aria-hidden="true">
+            <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="20" cy="20" r="11" fill="none" stroke="currentColor" stroke-width="1" opacity=".38"/><path d="M27 12 22 22l-9 6 5-10 9-6Z" fill="currentColor"/><circle cx="20" cy="20" r="2" fill="#f5f4ef"/></svg>
+          </span><strong>Market Compass</strong>
+        </div>
+        <div class="topbar-context"><span class="eyebrow">研究工作台</span><span class="context-divider">/</span><span id="context-title">市場總覽</span></div>
+        <div class="topbar-actions">
+          <span id="mode-badge" class="mode-badge" data-mode="loading"><span class="badge-dot"></span><span>載入中</span></span>
+          <button class="button button-live" id="refresh-live" type="button" aria-label="更新真實來源資料" title="更新固定即時來源">
+            <svg class="refresh-icon" aria-hidden="true" viewBox="0 0 20 20"><path d="M16.2 8A6.3 6.3 0 0 0 5.4 5.4L3.5 7.3M3.8 12A6.3 6.3 0 0 0 14.6 14.6l1.9-1.9"/><path d="M3.5 3.8v3.5H7M16.5 16.2v-3.5H13"/></svg>
+            <span>更新固定來源</span>
+          </button>
+        </div>
+      </header>
+
+      <main id="main" tabindex="-1">
+        <div id="global-message" class="global-message is-hidden" role="status" aria-live="polite"></div>
+        <div id="mode-notice" class="mode-notice">
+          <span class="notice-symbol" aria-hidden="true">✳</span>
+          <p id="mode-notice-text">正在準備研究資料…</p>
+        </div>
+
+        <section class="view is-visible" id="view-overview" aria-labelledby="page-title-overview">
+          <div class="page-heading">
+            <div>
+              <div class="eyebrow heading-kicker"><span class="heading-rule"></span>市場觀察</div>
+              <h1 id="page-title-overview">讓研究回到脈絡</h1>
+              <p class="heading-subtitle">把市場資料、事件線索與策略假設放在同一張桌面上。</p>
+            </div>
+            <div class="asof-block"><span class="label-small">資料時間</span><strong id="overview-asof">未提供</strong></div>
+          </div>
+
+          <section class="intro-panel" aria-label="研究資料說明">
+            <div class="intro-copy">
+              <span class="overline">研究札記</span>
+              <h2>先看資料從哪裡來，<br class="desktop-break">再決定要問什麼。</h2>
+              <p>市場數字不是答案。這裡整理可追溯的觀察，並把假設留在明處。</p>
+            </div>
+            <div class="intro-art" aria-hidden="true">
+              <span class="orbit orbit-one"></span><span class="orbit orbit-two"></span><span class="orbit orbit-three"></span>
+              <span class="art-core"></span><span class="art-point point-one"></span><span class="art-point point-two"></span><span class="art-point point-three"></span>
+              <span class="art-label">觀察資料<br>保留脈絡</span>
+            </div>
+            <div class="intro-footer"><span>研究資料集</span><strong id="dataset-label">未提供</strong><span class="intro-footer-divider"></span><span>觀察標的</span><strong id="instrument-count">未提供</strong></div>
+          </section>
+
+          <div class="section-header market-header">
+            <div><div class="eyebrow">市場觀察</div><h2>市場清單</h2><p>資料類型與幣別依來源標示</p></div>
+            <div class="market-controls">
+              <label class="search-box"><svg aria-hidden="true" viewBox="0 0 20 20"><circle cx="8.7" cy="8.7" r="5.4"/><path d="m13 13 4 4"/></svg><span class="visually-hidden">搜尋標的</span><input id="instrument-search" type="search" placeholder="搜尋名稱或代碼" autocomplete="off"><button id="clear-search" type="button" aria-label="清除搜尋" class="clear-search is-hidden">×</button></label>
+            </div>
+          </div>
+          <div class="filter-row" role="group" aria-label="市場篩選" id="market-filters">
+            <button type="button" class="filter-chip is-selected" data-market="ALL" aria-pressed="true">全部</button>
+            <button type="button" class="filter-chip" data-market="US" aria-pressed="false">美股與交易所交易基金</button>
+            <button type="button" class="filter-chip" data-market="TW" aria-pressed="false">台股</button>
+            <button type="button" class="filter-chip" data-market="FUND" aria-pressed="false">基金</button>
+          </div>
+          <div class="instrument-grid" id="instrument-grid" aria-live="polite">
+            <div class="skeleton-card"><span></span><span></span><span></span></div><div class="skeleton-card"><span></span><span></span><span></span></div><div class="skeleton-card"><span></span><span></span><span></span></div>
+          </div>
+          <div id="instrument-empty" class="empty-state is-hidden"><span class="empty-mark" aria-hidden="true">⌕</span><h3>沒有符合條件的標的</h3><p>調整市場或搜尋條件，或查看資料來源狀態。</p></div>
+
+          <section class="lower-grid">
+            <article class="surface-card event-teaser">
+              <div class="card-head"><div><div class="eyebrow">事件觀察</div><h2>近期事件觀察</h2></div><button class="text-button" data-view-link="events" type="button">查看事件 <span aria-hidden="true">↗</span></button></div>
+              <div id="event-teasers" class="teaser-list"><div class="skeleton-line"></div><div class="skeleton-line"></div></div>
+              <div id="event-teaser-empty" class="inline-empty is-hidden">目前沒有可顯示的事件。</div>
+            </article>
+            <article class="surface-card signal-card">
+              <div class="card-head"><div><div class="eyebrow">資料品質</div><h2>資料邊界</h2></div><span class="quality-icon" aria-hidden="true">⌁</span></div>
+              <div class="quality-row"><span class="quality-mark"></span><div><strong>社群觀測</strong><p id="social-coverage">目前沒有可用的社群資料。</p></div></div>
+              <div class="quality-row"><span class="quality-mark quality-mark-muted"></span><div><strong>基金淨值</strong><p>淨值研究未涵蓋申贖費、配息再投入與完整公司行動。</p></div></div>
+              <button class="text-button quality-link" data-view-link="sources" type="button">檢視來源狀態 <span aria-hidden="true">↗</span></button>
+            </article>
+          </section>
+          <footer class="page-foot"><span>Market Compass</span><span>研究用途｜不構成投資建議</span></footer>
+        </section>
+
+        <section class="view" id="view-events" aria-labelledby="page-title-events" hidden>
+          <div class="page-heading compact-heading"><div><div class="eyebrow heading-kicker"><span class="heading-rule"></span>觀察與脈絡</div><h1 id="page-title-events">事件雷達</h1><p class="heading-subtitle">追蹤來源、時間與標的關聯；評分是整理線索的啟發式指標。</p></div><div class="asof-block"><span class="label-small">事件數</span><strong id="event-count">未提供</strong></div></div>
+          <div class="insight-strip"><span class="insight-icon" aria-hidden="true">✳</span><p><strong>注意力不等於預測力。</strong>啟發式證據分數不是獲利機率；新聞報導也不代表原始發言或社群討論量。</p></div>
+          <div class="section-header event-controls-header"><div><h2>觀察清單</h2><p>每則事件保留可取得的時間與來源資訊。</p></div></div>
+          <div class="filter-row event-filters" role="group" aria-label="事件類別篩選" id="event-filters">
+            <button type="button" class="filter-chip is-selected" data-category="ALL" aria-pressed="true">全部事件</button>
+            <button type="button" class="filter-chip" data-category="policy" aria-pressed="false">政策</button>
+            <button type="button" class="filter-chip" data-category="macro" aria-pressed="false">總經</button>
+            <button type="button" class="filter-chip" data-category="influencer" aria-pressed="false">公開人物</button>
+            <button type="button" class="filter-chip" data-category="social" aria-pressed="false">社群</button>
+          </div>
+          <div id="event-list" class="event-list" aria-live="polite"></div>
+          <div id="events-empty" class="empty-state is-hidden"><span class="empty-mark" aria-hidden="true">⌁</span><h3>目前沒有符合條件的事件</h3><p>請稍後重新整理，或在資料來源查看可用性。</p></div>
+        </section>
+
+        <section class="view" id="view-strategies" aria-labelledby="page-title-strategies" hidden>
+          <div class="page-heading compact-heading"><div><div class="eyebrow heading-kicker"><span class="heading-rule"></span>假設檢驗</div><h1 id="page-title-strategies">策略實驗室</h1><p class="heading-subtitle">用同一段價格資料比較規則與基準，檢視保留測試區間。</p></div><div class="asof-block"><span class="label-small">研究方式</span><strong>歷史回測</strong></div></div>
+          <div class="insight-strip strategy-note"><span class="insight-icon" aria-hidden="true">↗</span><p>回測結果依賴資料、規則與成本假設。反覆調整策略可能造成選擇偏誤；保留測試區間不等於未受研究者檢視。歷史表現不代表未來結果，也不構成個人化投資建議。</p></div>
+          <div class="strategy-layout">
+            <form id="backtest-form" class="surface-card strategy-form">
+              <div class="card-head form-title"><div><div class="eyebrow">回測設定</div><h2>設定研究條件</h2></div><span class="form-index">01</span></div>
+              <label class="field-label" for="strategy-symbol">研究標的</label>
+              <select id="strategy-symbol" name="symbol" required><option value="">載入標的中…</option></select>
+              <div id="strategy-data-note" class="field-note">資料類型：未提供</div>
+              <label class="field-label" for="strategy-name">策略規則</label>
+              <select id="strategy-name" name="strategy">
+                <option value="buy_hold">買進持有</option><option value="sma">均線趨勢</option><option value="momentum">動能</option>
+              </select>
+              <div class="two-fields">
+                <div><label class="field-label" for="lookback">回看期間</label><div class="input-suffix input-suffix-wide"><input id="lookback" name="lookback" type="number" min="5" max="252" value="20" required><span>資料筆數／期</span></div></div>
+                <div><label class="field-label" for="initial-capital">研究本金</label><div class="input-prefix"><span>單位</span><input id="initial-capital" name="initialCapital" type="number" min="1" step="1" value="100000" required></div></div>
+              </div>
+              <div class="two-fields">
+                <div><label class="field-label" for="fee">手續費</label><div class="input-suffix"><input id="fee" name="feeBps" type="number" min="0" max="500" value="10" required><span>基點</span></div></div>
+                <div><label class="field-label" for="slippage">滑價</label><div class="input-suffix"><input id="slippage" name="slippageBps" type="number" min="0" max="500" value="5" required><span>基點</span></div></div>
+              </div>
+              <div class="split-explainer"><span class="split-mini" aria-hidden="true"><i></i><i></i></span><p><strong>歷史／保留測試切分</strong><br>依價格序列前 70% 與後 30% 切分；反覆比較策略後，後段區間不再是未曾檢視的測試資料。</p></div>
+              <div class="form-divider"></div>
+              <div class="upload-heading"><div><strong>匯入歷史價格</strong><span>價格檔於此裝置解析；回測資料僅傳至本機服務</span></div><span class="upload-tag">價格檔</span></div>
+              <label class="file-control" for="csv-file"><svg aria-hidden="true" viewBox="0 0 20 20"><path d="M10 13V3m0 0L6.5 6.5M10 3l3.5 3.5M4 12v4.5h12V12"/></svg><span id="file-name">選取價格檔</span><span class="file-choose">瀏覽</span></label>
+              <input id="csv-file" class="visually-hidden" type="file" accept=".csv,text/csv">
+              <div id="import-status" class="import-status" aria-live="polite">欄位須為 date,close，至少 100 筆、最多 5,000 筆，日期遞增且價格大於零；空白範本需自行填入 100 筆價格。</div>
+              <div id="import-actions" class="import-actions is-hidden"><button id="clear-import" class="subtle-button" type="button">清除匯入</button><span id="import-count"></span></div>
+              <div class="template-row"><button id="download-template" type="button" class="text-button">下載空白價格範本 <span aria-hidden="true">↓</span></button><span>欄位：date,close</span></div>
+              <button id="run-backtest" class="button button-primary run-button" type="submit"><span>執行回測</span><span aria-hidden="true">↗</span></button>
+              <div id="backtest-error" class="form-error is-hidden" role="alert"></div>
+            </form>
+            <div class="results-column">
+              <div class="results-heading"><div><div class="eyebrow">回測結果</div><h2>研究結果</h2></div><div class="result-actions"><span id="result-kind" class="data-pill is-hidden"></span><button id="download-report" type="button" class="icon-button" disabled aria-label="下載研究報告" title="下載研究報告"><svg aria-hidden="true" viewBox="0 0 20 20"><path d="M10 3v9m0 0 3.5-3.5M10 12 6.5 8.5M4 14.5V17h12v-2.5"/></svg></button></div></div>
+              <div id="results-placeholder" class="results-placeholder">
+                <div class="placeholder-chart" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><i></i></div>
+                <div><span class="eyebrow">準備開始研究</span><h3>先選一組研究條件</h3><p>設定標的與成本，或匯入自己的歷史價格，開始比較策略與基準。</p></div>
+              </div>
+              <div id="results-content" class="is-hidden">
+                <article class="surface-card chart-card">
+                  <div class="card-head chart-card-head"><div><span class="eyebrow">資產曲線</span><h3 id="result-title">策略績效</h3><p id="result-period">期間：未提供</p></div><div class="chart-legend"><span><i class="legend-strategy"></i>策略</span><span><i class="legend-benchmark"></i>基準</span></div></div>
+                  <div class="chart-wrap" id="chart-wrap"><svg id="equity-chart" viewBox="0 0 760 270" role="img" aria-label="策略與基準的資產曲線圖"></svg></div>
+                  <div id="chart-empty" class="chart-empty is-hidden">回測回傳的曲線資料不足，無法繪製圖表。</div>
+                </article>
+                <div id="metric-grid" class="metric-grid"></div>
+                <article class="surface-card split-card">
+                  <div class="card-head"><div><span class="eyebrow">保留測試檢視</span><h3>歷史與保留測試區間</h3></div><span class="split-badge">70 / 30</span></div>
+                  <div id="split-details" class="split-details"></div>
+                </article>
+                <article class="surface-card warning-card">
+                  <div class="card-head"><div><span class="eyebrow">回測假設</span><h3>假設與提醒</h3></div></div>
+                  <ul id="result-warnings" class="warning-list"></ul>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="view" id="view-sources" aria-labelledby="page-title-sources" hidden>
+          <div class="page-heading compact-heading"><div><div class="eyebrow heading-kicker"><span class="heading-rule"></span>可追溯性</div><h1 id="page-title-sources">資料來源</h1><p class="heading-subtitle">連線狀態、涵蓋範圍與資料限制一覽。</p></div><div class="asof-block"><span id="sources-time-label" class="label-small">本次回應</span><strong id="sources-asof">未提供</strong></div></div>
+          <div class="insight-strip source-note"><span class="insight-icon" aria-hidden="true">⌁</span><p>即時更新由你主動觸發。來源失敗與缺少涵蓋會保留呈現，不以示範資料替補。</p></div>
+          <div class="source-summary surface-card">
+            <div class="summary-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 6.5h16M4 12h16M4 17.5h10"/><circle cx="18" cy="17.5" r="2"/></svg></div>
+            <div><span class="eyebrow">來源涵蓋</span><h2>固定研究來源</h2><p>台股官方行情、新聞索引與官方談話；美股、基金及社群資料仍有涵蓋缺口。</p></div>
+            <span id="connected-count" class="summary-count">未提供</span>
+          </div>
+          <div id="source-list" class="source-list" aria-live="polite"></div>
+          <section class="official-reference-section" aria-labelledby="official-reference-title">
+            <div class="section-header official-reference-heading">
+              <div><div class="eyebrow">官方資料入口</div><h2 id="official-reference-title">官方原始資料核對入口</h2><p>供研究者自行核對；本機服務的取得狀態以上方來源清單為準。</p></div>
+              <span class="not-connected-badge">連線狀態見上方</span>
+            </div>
+            <div class="official-reference-list">
+              <article class="source-card">
+                <div class="source-card-top"><div class="source-name">The White House — Remarks</div><span class="not-connected-badge">官方來源入口</span></div>
+                <p class="source-description">白宮公開談話與聲明索引；本機服務是否取得內容，請見上方來源狀態。</p>
+                <div class="source-card-foot"><span>官方公開頁面</span><a class="source-link" href="https://www.whitehouse.gov/remarks/" target="_blank" rel="noopener noreferrer">開啟原始資料 ↗</a></div>
+              </article>
+              <article class="source-card">
+                <div class="source-card-top"><div class="source-name">Federal Reserve — Feeds</div><span class="not-connected-badge">官方來源入口</span></div>
+                <p class="source-description">聯準會公開演說與貨幣政策資料入口；本機服務是否取得內容，請見上方來源狀態。</p>
+                <div class="source-card-foot"><span>官方公開頁面</span><a class="source-link" href="https://www.federalreserve.gov/feeds/feeds.htm" target="_blank" rel="noopener noreferrer">開啟原始資料 ↗</a></div>
+              </article>
+              <article class="source-card">
+                <div class="source-card-top"><div class="source-name">SEC — EDGAR APIs</div><span class="source-status" data-status="planned">官方原始資料／尚未自動接通</span></div>
+                <p class="source-description">美國公開公司申報資料介面說明；本機系統目前沒有自動申報資料連線。</p>
+                <div class="source-card-foot"><span>官方公開頁面</span><a class="source-link" href="https://www.sec.gov/search-filings/edgar-application-programming-interfaces" target="_blank" rel="noopener noreferrer">開啟原始資料 ↗</a></div>
+              </article>
+            </div>
+          </section>
+          <div id="sources-empty" class="empty-state is-hidden"><span class="empty-mark" aria-hidden="true">⌁</span><h3>尚未收到來源狀態</h3><p>請檢查本機服務連線，或稍後再次更新固定來源。</p></div>
+          <section class="limitations-grid">
+            <article class="surface-card limitation-card"><span class="limit-number">01</span><div><h3>美股與基金</h3><p>目前沒有即時資料來源連線時，畫面會標示涵蓋缺口。基金以淨值研究，未完整反映申贖、配息與公司行動。</p></div></article>
+            <article class="surface-card limitation-card"><span class="limit-number">02</span><div><h3>新聞與社群</h3><p>GDELT 時間代表索引發現時間，不等同原文發布時間。新聞報導不代表原始發言或社群討論量。</p></div></article>
+          </section>
+          <footer class="page-foot"><span>Market Compass</span><span>研究用途｜不構成投資建議</span></footer>
+        </section>
+      </main>
+    </div>
+  </div>
+  <nav class="mobile-nav" aria-label="主要導覽">
+    <a href="#overview" class="mobile-nav-item is-active" data-view-link="overview"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="4" rx="1.5"/><rect x="13.5" y="9.5" width="7" height="11" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/></svg><span>總覽</span></a>
+    <a href="#events" class="mobile-nav-item" data-view-link="events"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5 14.6 9l5.9.7-4.4 4 1.2 5.8L12 16.6l-5.3 2.9 1.2-5.8-4.4-4L9.4 9 12 3.5Z"/></svg><span>事件</span></a>
+    <a href="#strategies" class="mobile-nav-item" data-view-link="strategies"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 18.5 9 13l3.2 3.1L20 7.5"/><path d="M14.5 7.5H20v5.5"/><path d="M4 4.5v15h16"/></svg><span>策略</span></a>
+    <a href="#sources" class="mobile-nav-item" data-view-link="sources"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 4.5h14v15H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span>來源</span></a>
+  </nav>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
