@@ -1,6 +1,6 @@
 {
   "name": "market-compass",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Local-first investment research and strategy comparison app",
   "type": "module",
@@ -8,8 +8,22 @@
     "node": ">=24"
   },
   "scripts": {
-    "start": "node src/server.mjs",
-    "test": "node --test test/*.test.mjs",
-    "check": "node scripts/check.mjs"
+    "dev": "vite --host 127.0.0.1 --port 4188",
+    "dev:api": "tsx src/server.ts",
+    "build:server": "tsc -p tsconfig.server.json",
+    "build": "npm run build:server && vite build",
+    "start": "node dist/server/src/server.js",
+    "test": "tsx --test test/*.test.ts",
+    "check": "tsc -p tsconfig.test.json && tsc -p tsconfig.client.json && node scripts/check.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vite": "8.3.4"
   }
 }

@@ -4,22 +4,33 @@ Market Compass 是以繁體中文呈現的本機投資研究工具，用於查�
 
 ## 在本機啟動
 
-需求：Node.js 24 或更新版本。執行期不需安裝第三方套件。
+需求：Node.js 24 或更新版本。首次使用請安裝鎖定的相依套件：
 
 在 PowerShell 執行：
 
 ```powershell
 Set-Location 'D:\Project\market-compass'
-npm start
+npm ci --ignore-scripts
 ```
 
-接著在瀏覽器開啟 <http://127.0.0.1:4187>。按 Ctrl+C 停止伺服器。
+開發時，在兩個 PowerShell 視窗分別啟動 API 與 Vite：
+
+```powershell
+npm run dev:api
+```
+
+```powershell
+npm run dev
+```
+
+開啟 <http://127.0.0.1:4188> 使用 Vite 開發介面；API 由本機伺服器提供於 4187。正式模式先執行 `npm run build`，再執行 `npm start`，並開啟 <http://127.0.0.1:4187>。按 Ctrl+C 停止各伺服器。
 
 執行測試與程式檢查：
 
 ```powershell
 npm test
 npm run check
+npm run build
 ```
 
 ## 資料與限制

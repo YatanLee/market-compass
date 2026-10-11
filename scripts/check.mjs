@@ -2,15 +2,13 @@ import { access, readdir } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import { join } from 'node:path';
 
-const roots = ['src', 'test', 'public', 'fixtures'];
+const roots = ['src', 'test', 'client', 'fixtures', 'scripts'];
 const files = [];
 const requiredFiles = [
-  'src/server.mjs',
-  'public/index.html',
-  'public/app.mjs',
-  'public/csv.mjs',
-  'public/styles.css',
-  'fixtures/demo-data.mjs',
+  'src/server.ts',
+  'client/index.html',
+  'client/src/main.tsx',
+  'fixtures/demo-data.ts',
 ];
 
 async function collectJavaScript(directory) {
